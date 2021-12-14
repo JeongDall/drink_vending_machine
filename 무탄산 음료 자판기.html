@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>무탄산음료 자판기</title>
+  <link rel="stylesheet" type="text/css" href="Drink.css" />
+  <script>
+   var drink_kind = ['생수', '옥수수 수염차', '아침햇살',  '솔의눈', '데자와', '실론티', '오렌지', '비락 식혜', '비락 수정과', '보성 녹차', '게토레이', '알로에', '포카리스웨트', '파워에이드', '박카스', '메론맛 우유', '딸기맛 우유', '바나나맛 우유', '커피맛 우유', '초코맛 우유']; 
+
+   var inputSum = 0;      
+   var productSum = 0;   
+   var change = 0;        
+	   
+   var obj = function(name, count, price){
+      this.name = name;
+	  this.count = count;
+	  this.price = price;
+   };
+   
+   var objArr = [];
+
+   function money1(btn){
+     var m1 = document.querySelector('#calc');
+     inputSum += Number(btn.innerHTML);
+     m1.setAttribute('value', inputSum);
+   };
+   
+ 
+   function printScreen(name){    
+     var sc = document.querySelector('#screen');
+     var str='';
+     for( var i in objArr ){    
+        if(objArr[i].name==name){   
+            var text = document.createTextNode(objArr[i].name+'번 ' + objArr[i].count + '*' + objArr[i].price + '원/ ');
+
+            if( document.getElementById(name) ){    
+                var h = document.getElementById(name);    
+                sc.removeChild(h);                        
+            }
+            var h = document.createElement('h20');    
+            h.setAttribute("id", name);    
+            h.appendChild(text);   
+        }
+    }
+    sc.appendChild(h); 
+
+    return;
+   } 
+
+  
+   function money2(x){    
+     var btn = x.querySelector('span');    
+     var m2 = document.querySelector('#spend');    
+     productSum += Number(btn.innerHTML);    
+     m2.setAttribute('value', productSum);    
+    
+     var str = x.innerHTML;    
+     var name = str.substring(0, str.indexOf('<'));    
+     var price = Number(btn.innerHTML);    
+    
+     if(objArr.length==0){    
+        objArr.push(new obj(name, 1, price));    
+        printScreen(name); return;    
+     }
+
+     else{                        
+        for(var i in objArr){    
+            if(objArr[i].name == name){    
+                objArr[i].count += 1;    
+                objArr[i].price += price;
+                printScreen(name); 
+				return;    
+            }
+        }        
+        objArr.push(new obj(name, 1, price));    
+        printScreen(name);    
+     }
+    
+   };
+
+
+   function calc(){
+     var f = document.querySelector('#change');
+     change = inputSum-productSum;    
+     f.setAttribute('value', change);
+   };
+  </script>
+ </head>
+
+ <body>
+ <div id="all">
+  <table id="drink_kind"> 
+        <tr>  
+            <td id="t1">1) 생수</td>
+			<td id="t2">2) 아침햇살</td>
+			<td id="t3">3) 데자와</td>
+			<td id="t4">4) 옥수수 수염차</td>
+			<td id="t5">5) 실론티</td>
+        </tr>
+        <tr>
+            <td id="t6">6) 오렌지 주스</td> 
+			<td id="t7">7) 비락 식혜</td>
+			<td id="t8">8) 비락 수정과</td>
+			<td id="t9">9) 게토레이</td>
+			<td id="t10">10) 보성 녹차</td>
+        </tr> 
+		<tr>
+            <td id="t11">11) 알로에 주스</td> 
+			<td id="t12">12) 솔의눈</td>
+			<td id="t13">13) 포카리스웨트</td>
+			<td id="t14">14) 파워에이드</td>
+			<td id="t15">15) 박카스</td>
+        </tr> 
+		<tr>
+            <td id="t16">16) 메론맛 우유</td> 
+			<td id="t17">17) 딸기맛 우유</td>
+			<td id="t18">18) 바나나맛 우유</td>
+			<td id="t19">19) 커피맛 우유</td>
+			<td id="t20">20) 초코맛 우유</td>
+        </tr> 
+  </table>
+  <br>
+  
+  <table id="menu_select">
+   <div>
+    <tr>
+     <td><button id="b1" onclick="money2(this)">1<br>
+     <span>500</span></button></td>
+     <td><button id="b2"
+     onclick="money2(this)">2<br>
+     <span>1200</span></button></td>
+     <td><button id="b3"
+     onclick="money2(this)">3<br>
+     <span>800</span></button></td>
+     <td><button id="b4"
+     onclick="money2(this)">4<br>
+     <span>1200</span></button></td>
+    </tr>
+    <tr>
+     <td><button id="b5"
+	 onclick="money2(this)">5<br>
+     <span>800</span></button></td>
+     <td><button id="b6"
+	 onclick="money2(this)">6<br>
+     <span>700</span></button></td>
+     <td><button id="b7"
+	 onclick="money2(this)">7<br>
+     <span>900</span></button></td>
+     <td><button id="b8" onclick="money2(this)">8<br>
+     <span>900</span></button></td>
+    </tr>
+    <tr>
+     <td><button id="b9"
+	 onclick="money2(this)">9<br>
+     <span>1000</span></button></td>
+     <td><button id="b10"
+	 onclick="money2(this)">10<br>
+     <span>1100</span></button></td>
+     <td><button id="b11"
+	 onclick="money2(this)">11<br>
+     <span>700</span></button></td>
+     <td><button id="b12"
+	 onclick="money2(this)">12<br>
+     <span>800</span></button></td>
+    </tr>
+    <tr>
+     <td><button id="b13"
+	 onclick="money2(this)">13<br>
+     <span>1000</span></button></td>
+     <td><button id="b14"
+	 onclick="money2(this)">14<br>
+     <span>1000</span></button></td>
+     <td><button id="b15"
+	 onclick="money2(this)">15<br>
+     <span>700</span></button></td>
+     <td><button id="b16"
+	 onclick="money2(this)">16<br>
+     <span>700</span></button></td>
+    </tr>
+    <tr>
+     <td><button onclick="money2(this)">17<br>
+     <span>1000</span></button></td>
+     <td><button onclick="money2(this)">18<br>
+     <span>1000</span></button></td>
+     <td><button onclick="money2(this)">19<br>
+     <span>1000</span></button></td>
+     <td><button onclick="money2(this)">20<br>
+     <span>1000</span></button></td>
+    </tr>
+   </div>
+  </table>
+  <br>
+  
+  <div id="money1">
+   <button onclick="money1(this)">50</button>
+   <button onclick="money1(this)">100</button>
+   <button onclick="money1(this)">500</button>
+   <button onclick="money1(this)">1000</button>
+   <br>
+
+   투입액<input id="calc" type="text" name="result" value=""><br>
+  </div>
+
+  <div id="screen">
+   </div>
+  <div id="spch">
+   <br>
+   지출액<input id="spend" type="text" value="">
+   <button onclick="calc()">계산</button>
+   <br>
+   거스름<input id="change" type="text" value="">
+  </div>
+  <br>
+  <br>
+
+  <img id="advertising" border="0" src="banana_milk.jpg" alt="광고" width="1100" height="430">
+ </div>
+ </body>
+</html>
